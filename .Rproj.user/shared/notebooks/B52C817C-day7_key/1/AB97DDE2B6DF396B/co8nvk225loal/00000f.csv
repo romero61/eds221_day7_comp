@@ -1,2 +1,0 @@
-"0","inner_join_example <- inner_join(animals,sites, by = 'location')"
-"0","inner_join_example"

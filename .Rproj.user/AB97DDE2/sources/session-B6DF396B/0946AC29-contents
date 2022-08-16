@@ -25,7 +25,6 @@ animals <- tibble::tribble(
 
 ```
 
-
 ```{r}
 sites <- tibble::tribble(
   ~location,      ~full_site_name, ~jurisdiction,
@@ -37,9 +36,6 @@ sites <- tibble::tribble(
 
 ```
 
-
-
-
 ## Full Join
 
 ```{r}
@@ -48,12 +44,12 @@ full_join_example <- full_join(animals, sites)
 ```
 
 ## Left Join
+
 ```{r}
 left_join_example <- left_join(animals, sites, by = "location")
 
 left_join_example
 ```
-
 
 ## Inner Join
 
@@ -61,16 +57,17 @@ left_join_example
 inner_join_example <- inner_join(animals,sites, by = 'location')
 inner_join_example
 ```
+
 ```{r}
 
-sites_2 <- sites |> 
-  rename((loc = location))
-
-sites_2
+# sites_2 <- sites |> 
+#   rename((loc = location))
+# 
+# sites_2
 ```
 
-
 ## Semi Join
+
 ```{r}
 semi_join_example <- semi_join(animals, sites, by = 'location')
 
@@ -86,10 +83,7 @@ anti_join_example
 
 Refresher 1: Starting with the penguins dataset in the palmerpenguins package, write a single piped sequence in which you:
 
-Only include penguins at Biscoe and Dream islands
-Remove the year and sex variables
-Add a new column called body_mass_kg, with penguin mass converted from grams to kilograms
-Rename the island variable to location
+Only include penguins at Biscoe and Dream islands Remove the year and sex variables Add a new column called body_mass_kg, with penguin mass converted from grams to kilograms Rename the island variable to location
 
 ```{r}
 refresher1 <- penguins |> 
@@ -102,16 +96,75 @@ names(refresher1)
 head(refresher1)
 ```
 
-
-
 Refresher 2: Staring with the penguins dataset in the palmerpenguins package, write a single piped sequence in which you:
 
-Limit to only Adelie penguins
-Remove any observations where flipper_length_mm is NA (hint: !is.na())
-Group the data by sex
-Find the mean (mean()), standard deviation (sd) and sample size (n) of flipper_length_mm for male and female Adelie penguins, returned in a nice summary table
+Limit to only Adelie penguins Remove any observations where flipper_length_mm is NA (hint: !is.na()) Group the data by sex Find the mean (mean()), standard deviation (sd) and sample size (n) of flipper_length_mm for male and female Adelie penguins, returned in a nice summary table
 
 1996-02-18T20:34:00-07:00
 
 2002-12-05T02:41:00-07:00
 
+# Dates and times with `lubridate`
+
+```{r}
+my_date <- "03-15-1998"
+class(my_date)
+# mdy, ymd, dmy
+lubridate::mdy(my_date)
+
+my_date2 <- "11/7/2003"
+#dmy
+lubridate::dmy(my_date2)
+
+my_date3 <- "08-Jun-1974"
+lubridate::dmy(my_date3)
+
+my_date4 <- "19610618"
+my_real_date <- lubridate::ymd(my_date4)
+```
+
+It can fail when using the wrong function
+
+```{r}
+lubridate::ymd("1942- 08-30")
+
+lubridate::dmy("09/22/84")
+```
+
+```{r}
+time <- "2020-08-12 11:18"
+time <- lubridate::ymd_hm(time)
+class(time)
+```
+
+# convert time zones
+
+```{r}
+
+with_tz(time, "Asia/Hong_Kong")
+
+my_time <- lubridate::ymd_hms(time)
+
+year(my_time)
+month(my_time)
+hour(my_time)
+minute(my_time)
+second(my_time)
+
+# Useful for group by months
+# use with mutate
+# can isolate months and do analysis 
+#Can ask questions such as what day or week
+```
+
+```{r}
+teddy_bday <- lubridate::ymd(20170615)
+wday(teddy_bday, label = TRUE)
+
+day_born <- lubridate::ymd(19840812)
+wday(day_born, label = TRUE)
+
+week(teddy_bday)
+```
+
+# Tidiverts
