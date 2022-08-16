@@ -167,4 +167,24 @@ wday(day_born, label = TRUE)
 week(teddy_bday)
 ```
 
+```{r}
+urchin_counts <- tribble(
+  ~date, ~species, ~size_mm,
+  "10/3/2020", 'purple', 55,
+  "10/4/2020", 'red', 48,
+  "11/17/2020", "red", 67
+)
+
+urchin_counts
+
+#overwrite existing date as iso8601
+urchin_ymd <- urchin_counts |> 
+  mutate(date = mdy(date)) |> 
+  mutate(year = year(date),
+         month = month(date),
+         day = day(date))
+urchin_ymd
+
+```
+
 # Tidiverts
