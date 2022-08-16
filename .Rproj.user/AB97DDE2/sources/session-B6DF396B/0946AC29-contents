@@ -110,3 +110,8 @@ Limit to only Adelie penguins
 Remove any observations where flipper_length_mm is NA (hint: !is.na())
 Group the data by sex
 Find the mean (mean()), standard deviation (sd) and sample size (n) of flipper_length_mm for male and female Adelie penguins, returned in a nice summary table
+
+1996-02-18T20:34:00-07:00
+
+2002-12-05T02:41:00-07:00
+
