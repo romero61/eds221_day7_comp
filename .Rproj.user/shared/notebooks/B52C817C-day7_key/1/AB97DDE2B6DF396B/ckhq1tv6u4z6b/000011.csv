@@ -1,0 +1,8 @@
+"0","sites <- tibble::tribble("
+"0","  ~location,      ~full_site_name, ~jurisdiction,"
+"0","   ""beach"",       ""Goleta Beach"",     ""SB City"","
+"0","  ""lagoon"",        ""UCSB Lagoon"",        ""UCSB"","
+"0","   ""bluff"",       ""Ellwood Mesa"",     ""SB City"","
+"0","    ""oaks"", ""Fremont Campground"",        ""USFS"""
+"0","  )"
+"0",""

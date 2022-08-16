@@ -4,14 +4,109 @@ format: html
 editor: visual
 ---
 
+```{r}
+library(tidyverse)
+library(palmerpenguins)
+library(lubridate)
+library(kableExtra)
+```
+
 # Joins
+
+```{r}
+animals <- tibble::tribble(
+  ~location,   ~species,  ~maturity,
+   "lagoon",   "bobcat",    "adult",
+    "bluff",   "coyote", "juvenile",
+    "creek",      "fox",    "adult",
+     "oaks", "squirrel", "juvenile",
+    "bluff",   "bobcat",    "adult"
+  )
+
+```
+
+
+```{r}
+sites <- tibble::tribble(
+  ~location,      ~full_site_name, ~jurisdiction,
+   "beach",       "Goleta Beach",     "SB City",
+  "lagoon",        "UCSB Lagoon",        "UCSB",
+   "bluff",       "Ellwood Mesa",     "SB City",
+    "oaks", "Fremont Campground",        "USFS"
+  )
+
+```
+
+
+
 
 ## Full Join
 
+```{r}
+full_join_example <- full_join(animals, sites)
+# KEY --> by "x" = "y" 
+```
+
 ## Left Join
+```{r}
+left_join_example <- left_join(animals, sites, by = "location")
+
+left_join_example
+```
+
 
 ## Inner Join
 
+```{r}
+inner_join_example <- inner_join(animals,sites, by = 'location')
+inner_join_example
+```
+```{r}
+
+sites_2 <- sites |> 
+  rename((loc = location))
+
+sites_2
+```
+
+
 ## Semi Join
+```{r}
+semi_join_example <- semi_join(animals, sites, by = 'location')
+
+semi_join_example
+```
 
 ## Anti Join
+
+```{r}
+anti_join_example <- anti_join(animals, sites, by = "location")
+anti_join_example
+```
+
+Refresher 1: Starting with the penguins dataset in the palmerpenguins package, write a single piped sequence in which you:
+
+Only include penguins at Biscoe and Dream islands
+Remove the year and sex variables
+Add a new column called body_mass_kg, with penguin mass converted from grams to kilograms
+Rename the island variable to location
+
+```{r}
+refresher1 <- penguins |> 
+  filter(island == c("Biscoe", "Dream islands")) |> 
+  select(-year, -sex) |> 
+  mutate(body_mass_kg = body_mass_g /1000) |> 
+  rename(location = island)
+
+names(refresher1)
+head(refresher1)
+```
+
+
+
+Refresher 2: Staring with the penguins dataset in the palmerpenguins package, write a single piped sequence in which you:
+
+Limit to only Adelie penguins
+Remove any observations where flipper_length_mm is NA (hint: !is.na())
+Group the data by sex
+Find the mean (mean()), standard deviation (sd) and sample size (n) of flipper_length_mm for male and female Adelie penguins, returned in a nice summary table

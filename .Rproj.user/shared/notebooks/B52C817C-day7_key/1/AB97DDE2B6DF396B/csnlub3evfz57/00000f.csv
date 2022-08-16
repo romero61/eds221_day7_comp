@@ -1,0 +1,2 @@
+"0","anti_join_example <- anti_join(animals, sites, by = ""location"")"
+"0","anti_join_example"
