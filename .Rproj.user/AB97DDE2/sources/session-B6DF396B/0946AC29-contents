@@ -197,4 +197,93 @@ time_interval
 time_length(time_interval, "year") # returns units in years can be seconds --> class = numeric
 ```
 
+# stringr for working with strings
+
+## str_detect
+
+```{r}
+my_string <- "Teddy loves eating salmon and socks."
+
+my_string |>  str_detect("love")
+
+my_string |> 
+  str_detect("pup")
+
+my_string  <- c("burrito", "fish taco", "taco salad")
+
+my_string |> 
+  str_detect("fish")
+```
+
+```{r}
+starwars
+
+# use str_detect to detect true or false
+
+skywalkers <- starwars |> 
+  filter(str_detect(name, pattern = "Skywalker"))
+
+skywalkers
+
+mauls <- starwars |> 
+  filter(str_detect(name, pattern = "Maul"))
+
+mauls
+
+blue_eyes <- starwars |> 
+  filter(str_detect(eye_color, pattern = "blue"))
+blue_eyes
+```
+
+# str_replace to replace string patterns
+
+```{r}
+firewalkers <- starwars |> 
+  mutate(name_2 = str_replace(name, pattern = "Sky",replacement = "Fire"))
+
+firewalkers
+```
+
+# Removing excess white space
+
+```{r}
+feedback <- c("  I ate some   nachos ", "Wednesday morning  ")
+#str_trim removes extra white space on ends
+
+str_trim(feedback)
+
+# str_squish removes both ends and inner extra white space
+str_squish(feedback)
+```
+
+# Letter Case
+
+```{r}
+str_to_lower(feedback)
+str_to_upper(feedback)
+str_to_title(feedback)
+str_to_sentence(feedback)
+
+
+# From star wars, create a new data frame starwars_lc that adds a new column called name_lower containing character names converted to all lowercase
+
+starwars_lc <- starwars |> 
+  mutate(name_lower = str_to_lower(name))
+
+starwars_lc
+```
+
+# `case_when()`\<- alt if-else statements
+
+```{r}
+sw_robot <- starwars |> 
+  mutate(robot_status = case_when(
+    species == "Droid" ~ "A ROBOT!!!",
+    species == "Human" ~ "It's a human!!!",
+    TRUE ~ "This is something else"
+  ))
+
+sw_robot
+```
+
 # Tidiverts
